@@ -769,7 +769,7 @@ document.getElementById('registrationForm').addEventListener('submit', function(
     };
     
     // Send to Google Apps Script
-    fetch('https://script.google.com/macros/s/AKfycbzN9OALDYgPEI0qSAgkeS2FJhdHZR5njKDQ28vJ9SRUejTHdWVMPIdSs0IYOcT8l4PDlg/exec', {
+    fetch('https://script.google.com/macrs/s/AKfycbzN9OALDYgPEI0qSAgkeS2FJhdHZR5njKDQ28vJ9SRUejTHdWVMPIdSs0IYOcT8l4PDlg/exec', {
         method: 'POST',
         mode: 'no-cors',
         headers: {
