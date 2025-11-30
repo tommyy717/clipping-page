@@ -760,40 +760,45 @@ document.getElementById('registrationForm').addEventListener('submit', function(
     
     // Get form data
     const formData = {
-        name: document.getElementById('name').value,
+        firstName: document.getElementById('name').value,
         phone: document.getElementById('phone').value,
         instagram: document.getElementById('instagram').value,
         profession: document.getElementById('profession').value,
-        payment: document.getElementById('payment').value,
-        timestamp: new Date().toISOString()
+        paymentInfo: document.getElementById('payment').value,
+        tcAgreed: document.getElementById('terms').checked
     };
     
-    // Here you would normally send to your backend/Google Sheets
-    // For now, we'll just show success message
-    console.log('Form data:', formData);
-    
-    // Show success message
-    document.getElementById('successMessage').style.display = 'block';
-    
-    // Reset form
-    this.reset();
-    
-    // Scroll to success message
-    document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth', block: 'center' });
-    
-    // Hide success message after 8 seconds
-    setTimeout(() => {
-        document.getElementById('successMessage').style.display = 'none';
-    }, 8000);
-    
-    // TODO: Send to your backend
-    // Example with Google Apps Script:
-    // fetch('https://script.google.com/macros/s/AKfycbw7ER09GrNsGHQw9fOd-rRZ8KNZtHPddUwESYZ8ZioeHAxQfS4QKE8gDzUiLaweVpzWlw/exec', {
-    //     method: 'POST',
-    //     mode: 'no-cors',
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify(formData)
-    // });
+    // Send to Google Apps Script
+    fetch('https://script.google.com/macros/s/AKfycbxuKDz0f7wdqJegjahc5A18kNG2kN-NvviNUyXsdF20J2qpV4IGt0ZhR0mfLnjelVuJDw/exec', {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(() => {
+        // Show success message
+        document.getElementById('successMessage').style.display = 'block';
+        
+        // Reset form
+        document.getElementById('registrationForm').reset();
+        
+        // Scroll to success message
+        document.getElementById('successMessage').scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'center' 
+        });
+        
+        // Hide success message after 8 seconds
+        setTimeout(() => {
+            document.getElementById('successMessage').style.display = 'none';
+        }, 8000);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Chyba při odesílání formuláře. Zkuste to prosím znovu.');
+    });
 });
 
 // Smooth scroll for anchor links
